@@ -27,7 +27,6 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
-        // Deixe o Service fazer o trabalho pesado dentro da transação
         return ResponseEntity.ok(postService.findAll());
     }
 

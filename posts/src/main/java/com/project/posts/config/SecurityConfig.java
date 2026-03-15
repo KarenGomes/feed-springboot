@@ -37,7 +37,7 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final CustomOAuth2SuccessHandler oauth2SuccessHandler;
-    private final AuthenticationProvider authenticationProvider; // Injetado da ApplicationConfig
+    private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,10 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                // NOVIDADE: Se houver erro de autenticação, retorne 401 em vez de redirecionar para o Google
                 .exceptionHandling(ex -> ex
-                        // Isso impede o redirecionamento automático para o Google (HTML)
-                        // Se a rota falhar ou o usuário não tiver permissão, ele retorna 401 puro.
                         .authenticationEntryPoint(new org.springframework.security.web.authentication.HttpStatusEntryPoint(org.springframework.http.HttpStatus.UNAUTHORIZED))
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -68,7 +65,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // No futuro, limite ao domínio do app
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);

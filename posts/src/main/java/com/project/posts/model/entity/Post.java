@@ -18,7 +18,7 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE) // Implementa o ON DELETE CASCADE no banco
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(nullable = false)

@@ -41,10 +41,8 @@ public class AuthController {
     }
 
     // 3. PONTO DE ENTRADA DO GOOGLE
-    // O front-end chamará este endpoint, e nós o mandamos para o Google
     @GetMapping("/google")
     public void redirectToGoogle(HttpServletResponse response) throws IOException {
-        // Esta é a rota padrão que o Spring Security cria quando ativamos OAuth2
         response.sendRedirect("/oauth2/authorization/google");
     }
 }
